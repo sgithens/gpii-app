@@ -30,8 +30,10 @@ Vagrant.configure(2) do |config|
     vm.customize ["setextradata", "global", "GUI/SuppressMessages", "all"]
   end
 
+  config.vm.synced_folder ".", "c:/vagrantfolder/test"
+
   config.vm.provision "shell", path: "provisioning/chocolatey-packages.bat"
   config.vm.provision "shell", path: "provisioning/npm-packages.bat"
-  config.vm.provision "shell", path: "provisioning/build.bat"
+  #config.vm.provision "shell", path: "provisioning/build.bat"
 
 end
