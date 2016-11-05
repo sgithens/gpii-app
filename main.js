@@ -53,7 +53,7 @@ var stopLocalFlowManager = function() {
  *  going forward.
  */
 var getFlowManagerStatus = function(callback) {
-    request("http://localhost:8081/userToken", function(error, response, body) {
+    request("http://127.0.0.1:8081/userToken", function(error, response, body) {
         if (!error && body.indexOf("No user currently logged in to the system") == 0) {
             callback([false]);
         }
@@ -92,14 +92,14 @@ var updateSystemStatus = function() {
 }
 
 var keyIn = function(token) {
-    request("http://localhost:8081/user/"+token+"/login", function(error, response, body) {
+    request("http://127.0.0.1:8081/user/"+token+"/login", function(error, response, body) {
         //TODO Put in some error logging
     });
     updateSystemStatus();
 }
 
 var keyOut = function(token) {
-    request("http://localhost:8081/user/"+token+"/logout", function(error, response, body) {
+    request("http://127.0.0.1:8081/user/"+token+"/logout", function(error, response, body) {
         //TODO Put in some error logging
     });
     updateSystemStatus();
