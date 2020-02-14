@@ -60,10 +60,12 @@
         templates: {
             initial: "capturePage"
         },
-        messages: {
+        "message-keys": {
             "hello-message-key": "Hello, %mood world."
         },
         model: {
+            "messages": "@expand:gpii.captureTool.loadMessageBundles()",
+
             // General Purpose Model Values
             templates: {
                 pages: {
@@ -583,6 +585,14 @@
         var resolvedPath = require("path").join(__dirname, "html", templateName + ".handlebars");
         var finalTemplate = require("electron").remote.require("fs").readFileSync(resolvedPath) + "";    //require(resolvedPath);
         return finalTemplate;
+    };
+
+    gpii.captureTool.loadMessageBundles = function () {
+        console.log("Sgithend dirrname ", __dirname);
+        var resolvedPath = require("path").join(__dirname, "../../../messageBundles/gpii-app-captureTool_en.json");
+        var j = JSON.parse(require("electron").remote.require("fs").readFileSync(resolvedPath));
+        console.log("Sgithens the bundles: ", j);
+        return j;
     };
 
     gpii.captureTool.startCapture = function (that) {
