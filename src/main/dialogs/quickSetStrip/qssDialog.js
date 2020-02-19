@@ -258,7 +258,7 @@ gpii.app.qss.bottleSettingUpdated = function (that, newSettings) {
  * @return {Number} - The total scaled size of the QSS's button
  */
 gpii.app.qss.computeQssButtonsWidth = function (options, modelScaleFactor, buttons) {
-    var separatorId = "separator",
+    var separatorIds = ["separator", "separator-visible"],
         qssButtonTypes   = options.qssButtonTypes,
         buttonWidth      = options.dialogContentMetrics.buttonWidth,
         separatorWidth   = options.dialogContentMetrics.separatorWidth,
@@ -273,7 +273,7 @@ gpii.app.qss.computeQssButtonsWidth = function (options, modelScaleFactor, butto
             !buttons[i - 1].buttonTypes.includes(qssButtonTypes.smallButton) &&
             buttons[i].path !== qssButtonTypes.closeButton
         ) {
-            if (buttons[i].buttonTypes[0] === separatorId) {
+            if (separatorIds.includes(buttons[i].buttonTypes[0])) {
                 // this is separator type button, which is slimmer that the others
                 buttonsWidth += separatorWidth;
             } else {

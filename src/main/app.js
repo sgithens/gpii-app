@@ -24,6 +24,7 @@ require("./assetsManager.js");
 require("./common/utils.js");
 require("./common/ws.js");
 require("./dialogs/dialogManager.js");
+require("./dialogs/captureToolDialog.js");
 require("./storage.js");
 require("./factsManager.js");
 require("./gpiiConnector.js");
@@ -33,6 +34,7 @@ require("./settingsBroker.js");
 require("./shortcutsManager.js");
 require("./siteConfigurationHandler.js");
 require("./surveys/surveyManager.js");
+require("./storage.js");
 require("./tray.js");
 require("./userErrorsHandler.js");
 require("./metrics.js");
@@ -105,6 +107,9 @@ fluid.defaults("gpii.app", {
         onPSPReadyForKeyIn: "@expand:fluid.promise()"
     },
     components: {
+        settingsDir: {
+            type: "gpii.settingsDir"
+        },
         configurationHandler: {
             type: "gpii.app.siteConfigurationHandler"
         },
@@ -246,6 +251,21 @@ fluid.defaults("gpii.app", {
                 }
             }
         },
+        captureTool: {
+            type: "gpii.app.captureTool",
+            createOnEvent: "onOpenCaptureTool",
+            options: {
+                model: {
+                    isKeyedIn: "{app}.model.isKeyedIn",
+                    keyedInUserToken: "{app}.model.keyedInUserToken",
+                    preferences: "{pspChannel}.model.preferences"
+                }
+            }
+        },
+        diagnosticsCollector: {
+            type: "gpii.app.diagnosticsCollector",
+            createOnEvent: "onPSPPrerequisitesReady"
+        },
         shortcutsManager: {
             type: "gpii.app.shortcutsManager",
             createOnEvent: "onPSPPrerequisitesReady",
@@ -369,6 +389,8 @@ fluid.defaults("gpii.app", {
 
         onPSPChannelConnected: null,
         onPSPReady: null,
+
+        onOpenCaptureTool: null,
 
         onKeyedIn: null,
         onKeyedOut: null,
